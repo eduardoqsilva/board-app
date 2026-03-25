@@ -1,8 +1,10 @@
-import { ArchiveIcon } from "lucide-react"
-import {Section} from '@/components/section'
+import { ArchiveIcon, MessageCircleIcon, ThumbsUpIcon } from "lucide-react"
+import { Button } from "@/components/button"
+import { Card } from "@/components/card"
+import { Section } from "@/components/section"
 
 export default function Home() {
-   return (
+  return (
     <div className="max-w-[1620px] w-full mx-auto p-10 flex flex-col gap-8 h-dvh">
       <div></div>
 
@@ -20,12 +22,25 @@ export default function Home() {
 
           {/* Content */}
           <Section.Content>
-            <div>card 1</div>
-            <div>card 2</div>
-            <div>card 3</div>
+            <Card.Root>
+              <Card.Header>
+                <Card.Title>Implementar</Card.Title>
+                <Card.Number>ECO-020</Card.Number>
+              </Card.Header>
+              <Card.Footer>
+                <Button>
+                  <ThumbsUpIcon className="size-3" />
+                  <span className="text-sm">12</span>
+                </Button>
+                <Button>
+                  <MessageCircleIcon className="size-3" />
+                  <span className="text-sm">12</span>
+                </Button>
+              </Card.Footer>
+            </Card.Root>
           </Section.Content>
         </Section.Root>
       </main>
     </div>
-   )
+  )
 }
