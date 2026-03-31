@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import { NuqsAdapter } from "nuqs/adapters/react"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={interFont.className}>
-      <body className="bg-navy-950 text-navy-50 antialiased">{children}</body>
+      <body className="bg-navy-950 text-navy-50 antialiased">
+        <NuqsAdapter>{children}</NuqsAdapter>
+      </body>
     </html>
   )
 }
