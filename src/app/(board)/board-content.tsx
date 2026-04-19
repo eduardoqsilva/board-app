@@ -1,10 +1,9 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { ArchiveIcon, MessageCircleIcon, ThumbsUpIcon } from "lucide-react"
+import { ArchiveIcon, MessageCircleIcon } from "lucide-react"
 import { useMemo } from "react"
 import type z from "zod"
-import { int } from "zod"
 import type { IssuesListResponseSchema } from "@/api/routes/list-issues"
 import { Button } from "@/components/button"
 import { Card } from "@/components/card"

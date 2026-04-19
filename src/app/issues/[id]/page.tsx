@@ -1,15 +1,17 @@
-import {
-  ArchiveIcon,
-  MessageCirclePlusIcon,
-  MoveLeftIcon,
-} from "lucide-react"
+import { ArchiveIcon, MoveLeftIcon } from "lucide-react"
 import type { Metadata } from "next"
+import { headers } from "next/headers"
 import Link from "next/link"
 import { Suspense } from "react"
-import { Input } from "@/components/input"
+import { createComment } from "@/http/create-comment"
 import { getIssue } from "@/http/get-issue"
+import { authClient } from "@/lib/auth-client"
 import { IssueCommentsList } from "../issues-comment/issues-comment-list"
 import { IssueCommentsSkeleton } from "../issues-comment/issues-comment-skeleton"
+import {
+  type CreateCommentSchema,
+  IssueCommentForm,
+} from "./issue-comment-form"
 import { IssueLikeButton } from "./issue-like-button"
 
 interface IssuePageProps {
@@ -40,6 +42,20 @@ export default async function IssuePage({ params }: IssuePageProps) {
 
   const issue = await getIssue({ id })
 
+  const { data: session } = await authClient.getSession({
+    fetchOptions: {
+      headers: await headers(),
+    },
+  })
+
+  async function handleCreateComment(data: CreateCommentSchema) {
+    "use server"
+
+    await createComment({ issueId: id, text: data.text })
+  }
+
+  const isAuthenticated = !!session?.user
+
   return (
     <main className="max-w-[900px] mx-auto w-full flex flex-col gap-4 p-6 bg-navy-800 border-[0.5px] border-navy-500 rounded-xl">
       <Link
@@ -69,19 +85,10 @@ export default async function IssuePage({ params }: IssuePageProps) {
       <div className="flex flex-col gap-2">
         <span className="font-semibold">Comments</span>
 
-        <form className="relative w-full">
-          <Input
-            className="bg-navy-900 h-11 pr-24 w-full"
-            placeholder="Leave a comment..."
-          />
-          <button
-            type="submit"
-            className="flex items-center gap-2 text-indigo-400 absolute right-3 top-1/2 -translate-y-1/2 text-xs hove:text-indigo-300 cursor-pointer disabled:opacity-50"
-          >
-            Publish
-            <MessageCirclePlusIcon className="size-3" />
-          </button>
-        </form>
+        <IssueCommentForm
+          onCreateComment={handleCreateComment}
+          isAuthenticated={isAuthenticated}
+        />
 
         <div className="mt-3">
           <Suspense fallback={<IssueCommentsSkeleton />}>

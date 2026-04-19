@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { ThumbsUpIcon } from "lucide-react"
-import type { ComponentProps, MouseEvent, MouseEventHandler } from "react"
+import type { ComponentProps, MouseEvent } from "react"
 import type z from "zod"
 import type { IssueInteractionsResponseSchema } from "@/api/routes/schemas/issue-interactions"
 import { toggleLike } from "@/http/toggle-like"
