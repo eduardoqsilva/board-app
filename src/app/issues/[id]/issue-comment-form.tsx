@@ -1,3 +1,5 @@
+"use client"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2Icon, MessageCirclePlusIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
