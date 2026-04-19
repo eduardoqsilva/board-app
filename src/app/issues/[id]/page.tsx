@@ -1,14 +1,16 @@
-import { ArchiveIcon, MessageCirclePlusIcon, MoveLeftIcon, ThumbsUpIcon } from "lucide-react"
+import {
+  ArchiveIcon,
+  MessageCirclePlusIcon,
+  MoveLeftIcon,
+} from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Suspense } from "react"
-import { Button } from "@/components/button"
+import { Input } from "@/components/input"
 import { getIssue } from "@/http/get-issue"
 import { IssueCommentsList } from "../issues-comment/issues-comment-list"
 import { IssueCommentsSkeleton } from "../issues-comment/issues-comment-skeleton"
-import { Input } from "@/components/input"
 import { IssueLikeButton } from "./issue-like-button"
-import { Skeleton } from "@/components/skeleton"
 
 interface IssuePageProps {
   params: Promise<{ id: string }>
@@ -54,9 +56,7 @@ export default async function IssuePage({ params }: IssuePageProps) {
           {statusLabels[issue.status]}
         </span>
 
-        <Suspense fallback={<Skeleton className="h-7 w-16" />}>
-          <IssueLikeButton issueId={issue.id} />
-        </Suspense>
+        <IssueLikeButton issueId={issue.id} />
       </div>
 
       <div className="space-y-2">
@@ -70,8 +70,14 @@ export default async function IssuePage({ params }: IssuePageProps) {
         <span className="font-semibold">Comments</span>
 
         <form className="relative w-full">
-          <Input className="bg-navy-900 h-11 pr-24 w-full" placeholder="Leave a comment..." />
-          <button type="submit" className="flex items-center gap-2 text-indigo-400 absolute right-3 top-1/2 -translate-y-1/2 text-xs hove:text-indigo-300 cursor-pointer disabled:opacity-50">
+          <Input
+            className="bg-navy-900 h-11 pr-24 w-full"
+            placeholder="Leave a comment..."
+          />
+          <button
+            type="submit"
+            className="flex items-center gap-2 text-indigo-400 absolute right-3 top-1/2 -translate-y-1/2 text-xs hove:text-indigo-300 cursor-pointer disabled:opacity-50"
+          >
             Publish
             <MessageCirclePlusIcon className="size-3" />
           </button>

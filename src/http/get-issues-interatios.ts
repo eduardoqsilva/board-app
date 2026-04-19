@@ -6,7 +6,7 @@ interface getIssuesInterationsParams {
 }
 
 export async function getIssuesInterations({ issueIds }: getIssuesInterationsParams) {
-  const url = new URL(`/api/issues/${issueIds}`, clientEnv.NEXT_PUBLIC_API_URL)
+  const url = new URL('/api/issues/interactions', clientEnv.NEXT_PUBLIC_API_URL)
   url.searchParams.set("issueIds", issueIds.join(","))
 
   const response = await fetch(url, {
